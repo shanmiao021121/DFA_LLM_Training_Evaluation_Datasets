@@ -38,7 +38,6 @@ DFA-Bench is the **first public comprehensive evaluation dataset for Design for 
 
 You can clone this repository to your local machine using Git:
 
-```bash
 git clone https://github.com/shanmiao021121/DFA_LLM_Training_Evaluation_Datasets.git
 
 ### 3.2. Data Structure
