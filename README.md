@@ -51,18 +51,19 @@ DFA_LLM_Training_Evaluation_Datasets/
 └── README.md            # This README file
 
 ## 4. Citation
+
 If you use this dataset in your research, please cite our forthcoming paper:
 "LLM Agent-driven Automated DFA Assessment with Fine-tuning and AAS-based RAG" by Hanyu Jiang, Jiacheng Zhong, and Cheng Wang.
 Full citation details (BibTeX) will be provided here once the paper is published or a preprint is available.
 
 ## 5. License
 
-The contents of this repository are released under the MIT License.
+The contents of this repository are released under the [MIT License](https://opensource.org/licenses/MIT).
 
 ## 6. Contact
 
 For any questions or collaborations, please feel free to contact:
 
-Jiaxin Liu - liujiaxin200211@163.com
-https://github.com/shanmiao021121
+*   Jiaxin Liu - liujiaxin200211@163.com
+*   https://github.com/shanmiao021121
 
