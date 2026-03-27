@@ -13,6 +13,7 @@ We propose an industrial-grade Design for Assembly (DFA) evaluation framework ba
 
 ## 📁 Repository Structure
 
+```text
 DFA-Agent-Framework/
 ├── src/                        # Source Code
 │   ├── app.py                  # Main Controller & Web UI 
