@@ -34,7 +34,7 @@ DFA-Agent-Framework/
 │   └── evaluation/
 │       └── Agent_Test_Cases.json   # 30 industrial scenarios for Agent stress testing
 └── README.md                   # Documentation
-
+```text
 
 ## 🏗️ System Architecture & Prompt Logic
 
@@ -64,11 +64,11 @@ retrieval_qa_tool	Vector Search + AAS Context Reconstruction + Rerank	Semantic U
 analytical_query_tool	Schema Injection + NL-to-Cypher	Precise Fact Retrieval
 suggestion_expert_tool	Fine-tuned DFA-LLM (Llama-3.1-8B based)	Root Cause Analysis
 
-## 5. License
+## License
 
 The contents of this repository are released under the [MIT License](https://opensource.org/licenses/MIT).
 
-## 6. Contact
+## Contact
 
 For any questions or collaborations, please feel free to contact:
 
