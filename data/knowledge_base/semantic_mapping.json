@@ -1,0 +1,81 @@
+{
+  "description": "机器人知识图谱的语义映射文件，用于帮助LLM理解自然语言和数据库字段的对应关系。",
+  "core_concepts": {
+    "额定负荷": {
+      "original_id_short": "RatedLoad",
+      "node_type": "SubmodelElementCollection",
+      "notes": "用户通常也说'载荷'或'额定负载'"
+    },
+    "最大附加负载": {
+      "original_id_short": "RatedAdditionalLoads",
+      "node_type": "SubmodelElementCollection",
+      "notes": ""
+    },
+    "最大负载": {
+      "original_id_short": "MaxLoad",
+      "node_type": "SubmodelElementCollection",
+      "notes": ""
+    },
+    "位姿重复精度": {
+      "original_id_short": "PoseRepeatability",
+      "node_type": "SubmodelElementCollection",
+      "notes": ""
+    },
+    "臂展": {
+      "original_id_short": "MaxReach",
+      "node_type": "SubmodelElementCollection",
+      "notes": "用户通常也说'工作范围'或'最大臂展'"
+    },
+    "占地面积": {
+      "original_id_short": "Footprint",
+      "node_type": "SubmodelElementCollection",
+      "notes": "通常需要查找其下的'Length'和'Width'属性"
+    },
+    "轴数": {
+      "original_id_short": "AxisCount",
+      "node_type": "Property",
+      "notes": ""
+    },
+    "防护等级": {
+      "original_id_short": "RobotProtectionRating",
+      "node_type": "Property",
+      "notes": "IP等级"
+    },
+    "控制器": {
+      "original_id_short": "ControlSystem",
+      "node_type": "Property",
+      "notes": ""
+    },
+    "数值": {
+      "original_id_short": "Value",
+      "node_type": "Property",
+      "notes": "当一个集合下只有一个数值时，通常用这个。例如，'RatedLoad'集合下的'Value'属性。"
+    }
+  },
+  "query_rules": [
+"【绝对规则】任何时候都只能生成单一一条 Cypher 查询语句，绝对不能生成由分号(;)分隔的多条语句。",
+    "所有 :Device 节点的 'type' 属性值是 'AAS'。",
+    "【重要】查询具体参数时，必须匹配节点的 `original_id_short` 属性，而不是 `id_short` 属性。",
+    "从 'Submodel' 节点到 'Property' 节点必须使用可变长度路径 `[:CONTAINS_ELEMENT*]`。",
+    "【重要】当用户使用'大约'、'左右'等模糊词汇描述数值时，你应该将其转换为一个合理的范围查询。",
+    "当需要查找属于同一个集合的多个属性时，最佳方法是先找到那个集合节点，然后再查找其子属性。",
+        "型号中的 'C' 代表 Ceiling (顶装)，'F' 代表 Foundry (铸造)",
+    "在同一个 `WITH` 子句中，不能使用刚刚创建的别名。如果需要计算，请在 `RETURN` 子句中直接进行。",
+    " 重要结构规则：当查询一个具体的测量值（如速度、位姿重复精度）时，这个值通常不是直接属性。它被分解为一个集合（例如'MainArm'），该集合下包含至少两个'Property'节点，一个的original_id_short是'Value'（存储数值），另一个是'Unit'（存储单位）。你需要先匹配到集合，再从集合向下匹配'Value'节点来获取数值。",
+    "数据库中的属性值可能由'单一值' (`Property`节点) 或'范围值' (`SubmodelElementCollection`下挂`MinValue`和`MaxValue`子节点)表示。'范围值' 模式是唯一的范围表示法，其子节点必定名为 `MinValue` 和 `MaxValue`。"
+  ],
+"few_shot_examples": [
+    {
+      "question": "KUKA KR 120 R2700-2 机器人的额定负载是多少公斤？",
+      "cypher": "MATCH (d:Device {id_short: 'KUKA_KR120_R2700_2'})-[:HAS_SUBMODEL]->(:Submodel {id_short: 'TechnicalData'})-[:CONTAINS_ELEMENT*]->(p:Property {displayName: '额定负载'})-[:CONTAINS_ELEMENT]->(v:Property {id_short: 'Value'}) MATCH (p)-[:CONTAINS_ELEMENT]->(u:Property {id_short: 'Unit'}) RETURN v.value as value, u.value as unit"
+    },
+    {
+      "question": "在所有提供的KUKA机器人型号中，哪一款的最大负载能力最强？",
+      "cypher": "MATCH (d:Device)-[:HAS_SUBMODEL]->(:Submodel {id_short: 'TechnicalData'})-[:CONTAINS_ELEMENT*]->(p:Property {displayName: '最大负载'})-[:CONTAINS_ELEMENT]->(v:Property {id_short: 'Value'}) RETURN d.id_short AS RobotModel, v.value AS MaxLoad ORDER BY v.value DESC LIMIT 1"
+    },
+    {
+      "question": "对比 KR 210 R2700-2 与 KR 150 R2700-2 的重量",
+      "cypher": "MATCH (d:Device)-[:HAS_SUBMODEL]->(:Submodel {id_short: 'TechnicalData'})-[:CONTAINS_ELEMENT*]->(p:Property {displayName: '重量'})-[:CONTAINS_ELEMENT]->(v:Property {id_short: 'Value'}) MATCH (p)-[:CONTAINS_ELEMENT]->(u:Property {id_short: 'Unit'}) WHERE d.id_short IN ['KUKA_KR210_R2700_2', 'KUKA_KR150_R2700_2'] RETURN d.id_short AS Robot, v.value as value, u.value as unit"
+    }
+  ]
+}

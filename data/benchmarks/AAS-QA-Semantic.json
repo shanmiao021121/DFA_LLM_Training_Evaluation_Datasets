@@ -1,0 +1,555 @@
+[
+  {
+    "id": "sc_001",
+    "question": "项目需求：我们需要一台KUKA机器人用于搬运一个重达160kg的汽车发动机总成。项目组初步选定了 KR 150 R2700-2 型号。请评估此选型是否可行，并说明理由。",
+    "ground_truth": "该选型不可行。根据技术数据，KR 150 R2700-2 的额定负载为150 kg，而工件重量为160kg，已经超出了其额定负载能力。虽然其最大负载为218 kg，但长期超额定负载运行会严重影响机器人寿命、精度和安全性。建议选择额定负载不低于160 kg的型号。",
+    "golden_sources": {
+      "documents": [
+        { "path": "KUKA_KR150_R2700_2/TechnicalData/RatedLoad" },
+        { "path": "KUKA_KR150_R2700_2/TechnicalData/MaxLoad" }
+      ]
+    }
+  },
+  {
+    "id": "sc_002",
+    "question": "项目需求：我们需要一台安装在地面上的6轴机器人，用于在一条2.8米宽的传送带两侧进行物料拾取和放置，工件重50kg，要求位姿重复精度优于±0.07mm。项目组评估后推荐使用 KR 210 R3100-2 C 型号。请评估此方案。",
+    "ground_truth": "该方案存在严重问题，不可行。主要原因为：1. 安装位置冲突：KR 210 R3100-2 C 是一款顶装 (Ceiling) 机器人，与地面安装的需求不符。2. 虽然其臂展、负载和精度均满足要求，但安装方式的根本性错误使其不适用。建议重新选择地面安装型号。",
+    "golden_sources": {
+      "documents": [
+        { "path": "KUKA_KR210_R3100_2_C/TechnicalData/InstallationPosition" },
+        { "path": "KUKA_KR210_R3100_2_C/TechnicalData/MaxReach" },
+        { "path": "KUKA_KR210_R3100_2_C/TechnicalData/RatedLoad" },
+        { "path": "KUKA_KR210_R3100_2_C/TechnicalData/PoseRepeatability" }
+      ]
+    }
+  },
+  {
+    "id": "sc_003",
+    "question": "项目需求：我们计划在一个洁净室环境中使用 KR 210 R2700-2 机器人。请问这个型号是否适用？",
+    "ground_truth": "标准版的 KR 210 R2700-2 可能不适用。其防护等级为IP65，并未明确针对洁净室(Cleanroom)环境设计。对于洁净室应用，应选择专门的CR型号，例如 KR 210 R2700 prime CR，它为洁净室环境提供了更高的防护标准和兼容性。建议确认具体的洁净室等级要求后选择合适的CR型号。",
+    "golden_sources": {
+      "documents": [
+        { "path": "KUKA_KR210_R2700_2/ProtectionRating/RobotProtectionRating" }
+      ]
+    }
+  },
+  {
+    "id": "sc_004",
+    "question": "项目需求：我们需要一台机器人，其最大臂展必须超过3000mm，同时额定负载要达到210kg。KR 210 R3100-2 F 型号满足这些要求吗？",
+    "ground_truth": "是的，该选型完全可行。根据技术数据，KR 210 R3100-2 F 的最大臂展为3100 mm，满足“超过3000mm”的要求；其额定负载为210 kg，满足“达到210kg”的要求。",
+    "golden_sources": {
+      "documents": [
+        { "path": "KUKA_KR210_R3100_2_F/TechnicalData/MaxReach" },
+        { "path": "KUKA_KR210_R3100_2_F/TechnicalData/RatedLoad" }
+      ]
+    }
+  },
+  {
+    "id": "sc_005",
+    "question": "项目需求：为了一个高精度的电子装配任务，我们要求机器人的位姿重复精度必须达到±0.05mm。KR 210 R2700 prime CR 是否满足此精度要求？",
+    "ground_truth": "不满足。根据技术数据，KR 210 R2700 prime CR 的位姿重复精度是 ±0.06 mm。这个精度值大于要求的 ±0.05 mm，因此不满足该高精度任务的要求。建议选择精度更高的型号。",
+    "golden_sources": {
+      "documents": [
+        { "path": "KUKA_KR210_R2700_prime_CR/TechnicalData/PoseRepeatability" }
+      ]
+    }
+  },
+  {
+    "id": "sc_006",
+    "question": "项目需求：我们需要在铸造车间的高温、多粉尘环境下使用机器人，初步选择了 KR 150 R3100-2。这个选择有什么风险？",
+    "ground_truth": "这个选择存在很大风险。标准版的 KR 150 R3100-2 防护等级为IP65，可能无法在高温和多粉尘的铸造环境中长期稳定工作。对于铸造 (Foundry) 应用，应选择专门的 F 型号，例如 KR 150 R3100-2 F，它具有更高的耐热和防尘能力。",
+    "golden_sources": {
+      "documents": [
+        { "path": "KUKA_KR150_R3100_2/ProtectionRating/RobotProtectionRating" },
+        { "path": "KUKA_KR150_R3100_2_F/ProtectionRating/RobotProtectionRating" }
+      ]
+    }
+  },
+  {
+    "id": "sc_007",
+    "question": "项目需求：我们需要一台能搬运300kg重物的机器人，并且能安装在天花板上以节省地面空间。KR 300 R2700-2 C-F 是不是一个好的选择？",
+    "ground_truth": "是的，这是一个非常好的选择。KR 300 R2700-2 C-F 的额定负载为300 kg，满足负载要求。型号中的 'C' 代表 Ceiling (顶装)，'F' 代表 Foundry (铸造)，表明它既可以顶装，也适合恶劣环境，完全符合需求。",
+    "golden_sources": {
+      "documents": [
+        { "path": "KUKA_KR300_R2700_2C_F/TechnicalData/RatedLoad" },
+        { "path": "KUKA_KR300_R2700_2C_F/TechnicalData/InstallationPosition" }
+      ]
+    }
+  },
+  {
+    "id": "sc_008",
+    "question": "项目需求：我们的车间空间非常有限，占地面积不能超过 800mm x 700mm。KR 180 R2100 nano F exclusive 是否能安装下？",
+    "ground_truth": "不能安装。根据技术数据，KR 180 R2100 nano F exclusive 的占地面积为 850mm x 615mm。虽然其宽度615mm满足要求，但长度850mm超过了800mm的限制，因此无法安装。",
+    "golden_sources": {
+      "documents": [
+        { "path": "KUKA_KR180_R2100_nano_F_exclusive/TechnicalData/Footprint" }
+      ]
+    }
+  },
+  {
+    "id": "sc_009",
+    "question": "项目需求：我们需要对比两款机器人，KR 120 R2700-2 和 KR 120 R2700-2 HO，它们在A1-A6轴的额定速度上完全一样吗？",
+    "ground_truth": "不完全一样。通过对比两款机器人的轴数据可以发现，它们在A1, A2, A3, A4, A5, A6轴的额定速度完全相同，均为120, 115, 120, 190, 180, 260 °/s。所以该陈述正确。",
+    "golden_sources": {
+      "documents": [
+        { "path": "KUKA_KR120_R2700_2/AxisData/SpeedAtRatedLoad" },
+        { "path": "KUKA_KR120_R2700_2_HO/AxisData/SpeedAtRatedLoad" }
+      ]
+    }
+  },
+  {
+    "id": "sc_010",
+    "question": "项目需求：工程师报告说 KR 240 R2900-2 型号的最大负载是240kg，这个说法准确吗？",
+    "ground_truth": "这个说法不准确。240 kg 是 KR 240 R2900-2 的额定负载 (Rated Load)，而不是最大负载 (Max Load)。根据技术数据，其最大负载为 319 kg。",
+    "golden_sources": {
+      "documents": [
+        { "path": "KUKA_KR240_R2900_2/TechnicalData/RatedLoad" },
+        { "path": "KUKA_KR240_R2900_2/TechnicalData/MaxLoad" }
+      ]
+    }
+  },
+  {
+    "id": "sc_011",
+    "question": "项目需求：我们需要为一台 KR 150 R3100-2 HO 机器人配置末端工具，需要知道小臂 (LinkArm) 的最大附加负载是多少？",
+    "ground_truth": "根据技术数据，KR 150 R3100-2 HO 的小臂最大附加负载为 null（或未提供数据）。这意味着在设计末端工具时需要特别咨询制造商或查阅更详细的负载图。",
+    "golden_sources": {
+      "documents": [
+        { "path": "KUKA_KR150_R3100_2_HO/TechnicalData/RatedAdditionalLoads" }
+      ]
+    }
+  },
+  {
+    "id": "sc_012",
+    "question": "项目需求：我们需要一台臂展在2700mm左右，但负载尽可能大的机器人。初步在 KR 250 R2700-2 和 KR 300 R2700-2 之间选择。哪个更合适？",
+    "ground_truth": "KR 300 R2700-2 更合适。两款机器人的最大臂展均为2701 mm，满足臂展要求。但在负载方面，KR 300 R2700-2 的额定负载为300 kg，大于 KR 250 R2700-2 的250 kg。因此，在满足臂展的前提下，KR 300 R2700-2 提供了更大的负载能力。",
+    "golden_sources": {
+      "documents": [
+        { "path": "KUKA_KR250_R2700_2/TechnicalData/MaxReach" },
+        { "path": "KUKA_KR250_R2700_2/TechnicalData/RatedLoad" },
+        { "path": "KUKA_KR300_R2700_2/TechnicalData/MaxReach" },
+        { "path": "KUKA_KR300_R2700_2/TechnicalData/RatedLoad" }
+      ]
+    }
+  },
+  {
+    "id": "sc_013",
+    "question": "项目需求：我们需要一台能在0℃以下低温环境中工作的机器人。KR 210 R3100-2 是否可以？",
+    "ground_truth": "不可以。根据其运行条件，KR 210 R3100-2 的最低运行环境温度为0℃，不能在0℃以下的环境中工作。需要在专门的低温型号中选择。",
+    "golden_sources": {
+      "documents": [
+        { "path": "KUKA_KR210_R3100_2/OperatingConditions/AmbientTemperature" }
+      ]
+    }
+  },
+  {
+    "id": "sc_014",
+    "question": "项目需求：KR 210 R2700-2 的重量是1077kg，而 KR 150 R2700-2 的重量是1072kg。请问它们的外形尺寸（占地面积）是否也不同？",
+    "ground_truth": "不是，它们的外形尺寸（占地面积）是相同的。尽管重量有细微差别，但根据技术数据，两款机器人的占地面积均为 754 mm x 754 mm。",
+    "golden_sources": {
+      "documents": [
+        { "path": "KUKA_KR210_R2700_2/TechnicalData/Weight" },
+        { "path": "KUKA_KR210_R2700_2/TechnicalData/Footprint" },
+        { "path": "KUKA_KR150_R2700_2/TechnicalData/Weight" },
+        { "path": "KUKA_KR150_R2700_2/TechnicalData/Footprint" }
+      ]
+    }
+  },
+  {
+    "id": "sc_015",
+    "question": "项目需求：我们需要对一台 KR 120 R2700-2 进行编程，需要知道其A2轴（第二轴）的运动范围限制。",
+    "ground_truth": "KR 120 R2700-2 的A2轴运动范围是 -140° 到 -5°。",
+    "golden_sources": {
+      "documents": [
+        { "path": "KUKA_KR120_R2700_2/AxisData/MotionRange" }
+      ]
+    }
+  },
+  {
+    "id": "sc_016",
+    "question": "项目需求：我们想用 KR 350 R2700-2 来执行一个需要快速旋转的任务，它的A4轴（第四轴）速度比A1轴快吗？",
+    "ground_truth": "是的，快很多。根据轴数据，KR 350 R2700-2 的A4轴额定速度为140 °/s，而A1轴的速度为105 °/s。",
+    "golden_sources": {
+      "documents": [
+        { "path": "KUKA_KR350_R2700_2/AxisData/SpeedAtRatedLoad" }
+      ]
+    }
+  },
+  {
+    "id": "sc_017",
+    "question": "项目需求：客户询问 KR 210 R3100-2 C-F 是否和 KR 210 R3100-2 F 具有相同的最大臂展。",
+    "ground_truth": "不相同。KR 210 R3100-2 C-F 的最大臂展是 3065 mm，而 KR 210 R3100-2 F 的最大臂展是 3100 mm。",
+    "golden_sources": {
+      "documents": [
+        { "path": "KUKA_KR210_R3100_2_C/TechnicalData/MaxReach" },
+        { "path": "KUKA_KR210_R3100_2_F/TechnicalData/MaxReach" }
+      ]
+    }
+  },
+  {
+    "id": "sc_018",
+    "question": "项目需求：我们需要一台额定负载为240kg的机器人。KR 240 R2900-2 HO 和 KR 240 R2900-2 F 都满足要求，它们在重量上一样吗？",
+    "ground_truth": "是的，它们重量完全一样。根据技术数据，KR 240 R2900-2 HO 和 KR 240 R2900-2 F 的重量都是 1120 kg。",
+    "golden_sources": {
+      "documents": [
+        { "path": "KUKA_KR240_R2900_2_HO/TechnicalData/Weight" },
+        { "path": "KUKA_KR240_R2900_2_F/TechnicalData/Weight" }
+      ]
+    }
+  },
+  {
+    "id": "sc_019",
+    "question": "项目需求：我们需要一台能搬运至少250kg工件的机器人，并且要求是顶装。KR 250 R2700-2 是否满足所有条件？",
+    "ground_truth": "不满足所有条件。KR 250 R2700-2 的额定负载是250 kg，满足负载要求。但其标准安装位置是地面，不满足顶装要求。需要选择型号中带 'C' 的顶装版本。",
+    "golden_sources": {
+      "documents": [
+        { "path": "KUKA_KR250_R2700_2/TechnicalData/RatedLoad" },
+        { "path": "KUKA_KR250_R2700_2/TechnicalData/InstallationPosition" }
+      ]
+    }
+  },
+  {
+    "id": "sc_020",
+    "question": "项目需求：评估使用 KR 120 R3100-2 进行一个需要手臂末端快速摆动的任务。请提供其A5轴和A6轴的额定速度以供参考。",
+    "ground_truth": "KR 120 R3100-2 的A5轴额定速度是 180 °/s，A6轴额定速度是 260 °/s。",
+    "golden_sources": {
+      "documents": [
+        { "path": "KUKA_KR120_R3100_2/AxisData/SpeedAtRatedLoad" }
+      ]
+    }
+  },
+  {
+    "id": "sc_021",
+    "question": "项目需求：工作环境存在静电敏感电子元件的装配，要求机器人必须符合 ESD 防护标准（如 ANSI/ESD S20.20）。KR 120 R3100-2 型号是否满足要求？",
+    "ground_truth": "满足要求。根据技术数据下的认证信息（Certification），KR 120 R3100-2 明确标注符合 IEC61340-5-1 和 ANSI/ESD S20.20 静电放电防护标准。",
+    "golden_sources": {
+      "documents": [
+        { "path": "AAS/KUKA_KR120_R3100_2/Submodel/Certification/Element/ESD" }
+      ]
+    }
+  },
+  {
+    "id": "sc_022",
+    "question": "项目需求：我们需要在食品加工环境中使用机器人，环境中会使用高压水冲洗设备。KR 180 R2100 nano F exclusive 是否能承受此环境？",
+    "ground_truth": "可以。该型号具备极高的防护能力。根据其防护等级（ProtectionRating），其机器人本体及手腕均支持 IP65、IP67 甚至 IP69 等级，其中 IP69 意味着能够承受高压、高温冲洗，非常适合此类环境。",
+    "golden_sources": {
+      "documents": [
+        { "path": "AAS/KUKA_KR180_R2100_nano_F_exclusive/Submodel/ProtectionRating/Element/RobotProtectionRating" },
+        { "path": "AAS/KUKA_KR180_R2100_nano_F_exclusive/Submodel/ProtectionRating/Element/WristProtectionRating" }
+      ]
+    }
+  },
+  {
+    "id": "sc_023",
+    "question": "项目需求：我们要求机器人在额定负载下，A6轴的旋转速度必须达到 250 °/s 以上。KR 150 R3100-2 满足这个性能指标吗？",
+    "ground_truth": "满足。根据轴数据（AxisData）中的额定负载速度（SpeedAtRatedLoad），KR 150 R3100-2 的 A6 轴额定速度为 260 °/s，超过了 250 °/s 的要求。",
+    "golden_sources": {
+      "documents": [
+        { "path": "AAS/KUKA_KR150_R3100_2/Submodel/AxisData/Element/SpeedAtRatedLoad/Element/A6" }
+      ]
+    }
+  },
+  {
+    "id": "sc_024",
+    "question": "项目需求：在一个自动化单元中，我们不仅要在手腕挂载120kg工件，还要在小臂（LinkArm）上加装一个30kg的视觉补偿系统。KR 210 R2700-2 是否具备这种负载分配能力？",
+    "ground_truth": "具备。根据技术数据，KR 210 R2700-2 的额定负载为 275kg。在附加负载（RatedAdditionalLoads）参数中，其小臂（LinkArm）允许的最大附加负载为 50kg，因此 30kg 的视觉系统处于安全范围内。",
+    "golden_sources": {
+      "documents": [
+        { "path": "AAS/KUKA_KR210_R2700_2/Submodel/TechnicalData/Element/RatedLoad" },
+        { "path": "AAS/KUKA_KR210_R2700_2/Submodel/TechnicalData/Element/RatedAdditionalLoads/Element/LinkArm" }
+      ]
+    }
+  },
+  {
+    "id": "sc_025",
+    "question": "项目需求：工厂环境温度波动较大，夏季最高可达 50℃。KR 240 R2900-2 能否在此环境下正常运行？",
+    "ground_truth": "可以。根据运行条件（OperatingConditions），KR 240 R2900-2 的环境温度范围为 0℃ 到 55℃（即 273 K 到 328 K），因此 50℃ 在其允许的运行范围内。",
+    "golden_sources": {
+      "documents": [
+        { "path": "AAS/KUKA_KR240_R2900_2/Submodel/OperatingConditions/Element/AmbientTemperature" }
+      ]
+    }
+  },
+  {
+    "id": "sc_026",
+    "question": "分析一下 KR 210 R2700 prime CR 相对于标准版 KR 210 R2700-2 在控制器和精度上的主要区别。",
+    "ground_truth": "主要区别有两点：1. 控制器：prime CR 使用的是 KR C4 系统，而标准版使用 KR C5。2. 精度：prime CR 的位姿重复精度为 ±0.06 mm，标准版为 ±0.05 mm。这意味着在洁净室版本中，为了特殊密封和防护，精度略有权衡。",
+    "golden_sources": {
+      "documents": [
+        { "path": "AAS/KUKA_KR210_R2700_prime_CR/Submodel/Controller/Element/ControlSystem" },
+        { "path": "AAS/KUKA_KR210_R2700_prime_CR/Submodel/TechnicalData/Element/PoseRepeatability" },
+        { "path": "AAS/KUKA_KR210_R2700_2/Submodel/TechnicalData/Element/PoseRepeatability" }
+      ]
+    }
+  },
+  {
+    "id": "sc_027",
+    "question": "如果需要在狭窄的垂直空间进行上下往复运动，我们需要 A2 轴有很大的向下倾斜角度。请问 KR 300 R2700-2 C 的 A2 轴向下极限是多少？",
+    "ground_truth": "KR 300 R2700-2 C 是一款顶装机器人。根据轴数据，其 A2 轴的运动范围最小值为 -140°，最大值为 -14°。向下倾斜的极限即为其运动范围的上限偏移量，考虑到其顶装姿态，-140° 是其相对于基座顶部的最大张角。",
+    "golden_sources": {
+      "documents": [
+        { "path": "AAS/KUKA_KR300_R2700_2_C/Submodel/AxisData/Element/MotionRange/Element/A2" }
+      ]
+    }
+  },
+  {
+    "id": "sc_028",
+    "question": "项目需要采购 2700mm 臂展级别的机器人，并要求具备 IP67 手腕防护。KR 240 R2900-2 和 KR 210 R2700-2 哪个更符合？",
+    "ground_truth": "两款型号均具备 IP67 的手腕防护等级。但在臂展方面，KR 210 R2700-2 的臂展为 2701mm，属于标准的 2700mm 级别；而 KR 240 R2900-2 臂展为 2900mm。如果严格要求 2700mm 级别，KR 210 R2700-2 更符合描述。",
+    "golden_sources": {
+      "documents": [
+        { "path": "AAS/KUKA_KR210_R2700_2/Submodel/TechnicalData/MaxReach" },
+        { "path": "AAS/KUKA_KR210_R2700_2/Submodel/ProtectionRating/Element/WristProtectionRating" },
+        { "path": "AAS/KUKA_KR240_R2900_2/Submodel/TechnicalData/MaxReach" }
+      ]
+    }
+  },
+  {
+    "id": "sc_029",
+    "question": "计算 KR 350 R2700-2 在安装总负载时的极限承载力（考虑额定负载和所有主要部件的附加负载）。",
+    "ground_truth": "KR 350 R2700-2 的额定负载为 350kg。此外，它允许的附加负载为：转盘 300kg + 大臂 130kg + 小臂 150kg。因此其全系统的理论最大承载力（包含机器人自身部件负载分担）合计为 930kg。",
+    "golden_sources": {
+      "documents": [
+        { "path": "AAS/KUKA_KR350_R2700_2/Submodel/TechnicalData/RatedLoad" },
+        { "path": "AAS/KUKA_KR350_R2700_2/Submodel/TechnicalData/RatedAdditionalLoads" }
+      ]
+    }
+  },
+  {
+    "id": "sc_030",
+    "question": "在所有额定负载在 120kg-180kg 之间的机器人中，哪款型号的自重（Weight）与其负载的比值（自重/负载）最小？",
+    "ground_truth": "经过计算，KR 180 R2100 nano F exclusive 的自重比值最小。其自重为 998kg，额定负载为 180kg，比值约为 5.54。这表明该型号在保持高负载能力的同时，结构设计最为轻量化。",
+    "golden_sources": {
+      "documents": [
+        { "path": "AAS/KUKA_KR180_R2100_nano_F_exclusive/TechnicalData/Weight" },
+        { "path": "AAS/KUKA_KR180_R2100_nano_F_exclusive/TechnicalData/RatedLoad" }
+      ]
+    }
+  },
+  {
+    "id": "kg_max_01",
+    "question": "在所有提供的KUKA机器人型号中，哪一款的额定负载能力最强？",
+    "ground_truth": "KUKA KR350 R2700-2 的额定负载能力最强，为350 kg。",
+    "golden_sources": {
+      "documents": [
+        { "path": "KUKA_KR350_R2700_2/TechnicalData/RatedLoad" }
+      ]
+    }
+  },
+  {
+    "id": "kg_min_02",
+    "question": "哪个型号的机器人重量最轻？",
+    "ground_truth": "KUKA KR180 R2100 nano F exclusive 的重量最轻，为998 kg。",
+    "golden_sources": {
+      "documents": [
+        { "path": "KUKA_KR180_R2100_nano_F_exclusive/TechnicalData/Weight" }
+      ]
+    }
+  },
+  {
+    "id": "kg_filter_sort_03",
+    "question": "请列出所有额定负载大于等于300kg的机器人型号，并按负载从高到低排序。",
+    "ground_truth": "额定负载大于等于300kg的机器人型号有：KR350 R2700-2 (350 kg), KR300 R2700-2 (300 kg), KR300 R2700-2 F (300 kg), KR300 R2700-2 HC (300 kg), KR300 R2700-2 HC II (300 kg), KR300 R2700-2C-F (300 kg), KR300 R2700-2 C (300 kg)。",
+    "golden_sources": {
+      "documents": [
+        { "path": "KUKA_KR350_R2700_2/TechnicalData/RatedLoad" },
+        { "path": "KUKA_KR300_R2700_2/TechnicalData/RatedLoad" },
+        { "path": "KUKA_KR300_R2700_2_F/TechnicalData/RatedLoad" },
+        { "path": "KUKA_KR300_R2700_2_HC/TechnicalData/RatedLoad" },
+        { "path": "KUKA_KR300_R2700_2_HC_II/TechnicalData/RatedLoad" },
+        { "path": "KUKA_KR300_R2700_2C_F/TechnicalData/RatedLoad" },
+        { "path": "KUKA_KR300_R2700_2_C/TechnicalData/RatedLoad" }
+      ]
+    }
+  },
+  {
+    "id": "kg_filter_reach_04",
+    "question": "有哪些型号的机器人最大臂展恰好是3100 mm？",
+    "ground_truth": "最大臂展恰好是3100 mm 的型号有：KUKA KR120 R3100-2, KUKA KR120 R3100-2 F, KUKA KR150 R3100-2, KUKA KR150 R3100-2 F, KUKA KR150 R3100-2 HO, KUKA KR210 R3100-2, KUKA KR210 R3100-2 F。",
+    "golden_sources": {
+      "documents": [
+        { "path": "KUKA_KR120_R3100_2/TechnicalData/MaxReach" },
+        { "path": "KUKA_KR120_R3100_2_F/TechnicalData/MaxReach" },
+        { "path": "KUKA_KR150_R3100_2/TechnicalData/MaxReach" },
+        { "path": "KUKA_KR150_R3100_2_F/TechnicalData/MaxReach" },
+        { "path": "KUKA_KR150_R3100_2_HO/TechnicalData/MaxReach" },
+        { "path": "KUKA_KR210_R3100_2/TechnicalData/MaxReach" },
+        { "path": "KUKA_KR210_R3100_2_F/TechnicalData/MaxReach" }
+      ]
+    }
+  },
+  {
+    "id": "kg_count_05",
+    "question": "有多少款机器人的安装位置是“顶装”？",
+    "ground_truth": "有3款机器人的安装位置是“顶装”：KUKA KR210 R3100-2 C, KUKA KR240 R2900-2 C, KUKA KR300 R2700-2 C。",
+    "golden_sources": {
+      "documents": [
+        { "path": "KUKA_KR210_R3100_2_C/TechnicalData/InstallationPosition" },
+        { "path": "KUKA_KR240_R2900_2_C/TechnicalData/InstallationPosition" },
+        { "path": "KUKA_KR300_R2700_2_C/TechnicalData/InstallationPosition" }
+      ]
+    }
+  },
+  {
+    "id": "kg_avg_06",
+    "question": "所有臂展为2700mm级别的机器人（臂展在2600mm到2800mm之间），它们的平均额定负载是多少？",
+    "ground_truth": "臂展在2700mm级别的机器人共有18款，它们的平均额定负载约为239.17 kg。",
+    "golden_sources": {
+      "documents": []
+    }
+  },
+  {
+    "id": "task_recommend_07",
+    "question": "我需要一台用于高精度装配的机器人，要求位姿重复精度优于±0.055mm，同时额定负载要大于150kg。请为我推荐一款合适的型号。",
+    "ground_truth": "推荐 KUKA KR180 R2100 nano F exclusive。它的位姿重复精度为±0.05mm，满足优于±0.055mm的要求；额定负载为180kg，满足大于150kg的要求。",
+    "golden_sources": {
+      "documents": [
+        { "path": "KUKA_KR180_R2100_nano_F_exclusive/TechnicalData/PoseRepeatability" },
+        { "path": "KUKA_KR180_R2100_nano_F_exclusive/TechnicalData/RatedLoad" }
+      ]
+    }
+  },
+  {
+    "id": "task_step_by_step_08",
+    "question": "先帮我找出所有铸造(Foundry)型号的机器人，然后从这些型号中，找出最大负载能力最强的一款。",
+    "ground_truth": "铸造型号中，最大负载能力最强的是 KUKA KR300 R2700-2 F，其最大负载为370 kg。",
+    "golden_sources": {
+      "documents": [
+        { "path": "KUKA_KR300_R2700_2_F/TechnicalData/MaxLoad" }
+      ]
+    }
+  },
+  {
+    "id": "kg_complex_filter_09",
+    "question": "请列出所有控制器为KR C4，并且手腕防护等级包含IP67的机器人型号。",
+    "ground_truth": "满足条件的型号是 KUKA KR210 R2700 prime CR。",
+    "golden_sources": {
+      "documents": [
+        { "path": "KUKA_KR210_R2700_prime_CR/Controller/ControlSystem" },
+        { "path": "KUKA_KR210_R2700_prime_CR/ProtectionRating/WristProtectionRating" }
+      ]
+    }
+  },
+  {
+    "id": "task_find_anomaly_10",
+    "question": "在所有额定负载为120kg的机器人中，哪一款的重量与其他型号差异最大？",
+    "ground_truth": "在额定负载为120kg的机器人中，KUKA KR120 R3100-2 和 KUKA KR120 R3100-2 F 的重量为1105 kg，与其他型号（均为1069 kg）差异最大。",
+    "golden_sources": {
+      "documents": [
+        { "path": "KUKA_KR120_R2700_2/TechnicalData/Weight" },
+        { "path": "KUKA_KR120_R2700_2_F/TechnicalData/Weight" },
+        { "path": "KUKA_KR120_R2700_2_HO/TechnicalData/Weight" },
+        { "path": "KUKA_KR120_R3100_2/TechnicalData/Weight" },
+        { "path": "KUKA_KR120_R3100_2_F/TechnicalData/Weight" }
+      ]
+    }
+  },
+  {
+    "id": "task_compare_11",
+    "question": "我们要升级生产线，目前使用的是 KR 120 R2700-2，想换成 KR 120 R3100-2 以获得更长的臂展。请分析这次升级在‘设备自重’和‘负载能力’上会有什么变化？",
+    "ground_truth": "升级到 KR 120 R3100-2 后：1. 臂展从 2701mm 增加到 3100mm。2. 额定负载保持不变，均为 120kg。3. 设备自重（Weight）将从 1069kg 增加到 1105kg，增加了 36kg。这意味着底座承重结构可能需要重新评估，尽管负载能力没变。",
+    "golden_sources": {
+      "documents": [
+        { "path": "AAS/KUKA_KR120_R2700_2/TechnicalData/Weight" },
+        { "path": "AAS/KUKA_KR120_R3100_2/TechnicalData/Weight" },
+        { "path": "AAS/KUKA_KR120_R3100_2/TechnicalData/RatedLoad" }
+      ]
+    }
+  },
+  {
+    "id": "task_selection_12",
+    "question": "铸造车间需要处理一批 130kg 的红热铸件，环境极其恶劣。在 KR 150 R2700-2 和 KR 150 R2700-2 F 之间，应该选哪一个？请从环境适应性和安全余量两方面说明。",
+    "ground_truth": "强烈推荐选择 KR 150 R2700-2 F。原因：1. 环境适应性：后缀‘F’代表 Foundry（铸造），该型号专门针对高温多粉尘环境设计，防护性能远高于标准版。2. 安全余量：两者的额定负载均为 150kg，搬运 130kg 铸件有 20kg 的安全余量。标准版若在铸造环境使用，其寿命会因粉尘进入关节而大幅缩短。",
+    "golden_sources": {
+      "documents": [
+        { "path": "AAS/KUKA_KR150_R2700_2_F/Submodel/DigitalNameplate/Element/Model" },
+        { "path": "AAS/KUKA_KR150_R2700_2_F/Submodel/TechnicalData/Element/RatedLoad" }
+      ]
+    }
+  },
+  {
+    "id": "task_check_13",
+    "question": "我们车间的地基承载力限制为每台设备不得超过 1000kg。请问在所有 KR 180 级别的机器人中，是否有符合要求的型号？",
+    "ground_truth": "符合要求的型号是 KR 180 R2100 nano F exclusive。它的重量为 998kg，是该级别中唯一重量低于 1000kg 的型号（其他如 KR 180 R2500 系列重量均超过 1000kg，如 1072kg 或 1105kg）。",
+    "golden_sources": {
+      "documents": [
+        { "path": "AAS/KUKA_KR180_R2100_nano_F_exclusive/TechnicalData/Weight" }
+      ]
+    }
+  },
+  {
+    "id": "task_motion_14",
+    "question": "我们需要在额定负载下执行一个高频点胶任务，要求机器人的 A4 和 A6 轴速度之和至少达到 400 °/s。KR 240 R2900-2 能胜任吗？",
+    "ground_truth": "不能胜任。根据轴数据，KR 240 R2900-2 的 A4 轴速度为 170 °/s，A6 轴速度为 206 °/s，两者之和为 376 °/s，未达到 400 °/s 的技术指标要求。",
+    "golden_sources": {
+      "documents": [
+        { "path": "AAS/KUKA_KR240_R2900_2/Submodel/AxisData/Element/SpeedAtRatedLoad/Element/A4" },
+        { "path": "AAS/KUKA_KR240_R2900_2/Submodel/AxisData/Element/SpeedAtRatedLoad/Element/A6" }
+      ]
+    }
+  },
+  {
+    "id": "task_expert_15",
+    "question": "项目要求在食品行业洁净室环境（HO型号）中使用机器人，且控制器必须是最新的 KR C5。请问 KR 120 R2700-2 HO 满足条件吗？",
+    "ground_truth": "满足。首先，型号带‘HO’后缀表示其使用食品级润滑油（Hygienic Oil），适合食品行业。其次，根据控制器子模型信息，该型号配置的是 KR C5 控制系统，符合项目要求。",
+    "golden_sources": {
+      "documents": [
+        { "path": "AAS/KUKA_KR120_R2700_2_HO/Submodel/DigitalNameplate/Element/Model" },
+        { "path": "AAS/KUKA_KR120_R2700_2_HO/Submodel/Controller/Element/ControlSystem" }
+      ]
+    }
+  },
+  {
+    "id": "task_payload_16",
+    "question": "计算 KR 210 R3100-2 F 在满额运行时的‘极限抓取能力’。除了 210kg 的工件，如果还要在旋转机构（Turntable）上加装 300kg 的固定工装，是否安全？",
+    "ground_truth": "安全。根据技术数据，该机器人的额定负载为 210kg。而在附加负载参数中，其旋转机构（Turntable）明确支持最大 300kg 的附加重量。因此，这种 210kg（末端）+ 300kg（旋转机构）的配置符合 KUKA 官方设计的安全余量。",
+    "golden_sources": {
+      "documents": [
+        { "path": "AAS/KUKA_KR210_R3100_2_F/Submodel/TechnicalData/Element/RatedLoad" },
+        { "path": "AAS/KUKA_KR210_R3100_2_F/Submodel/TechnicalData/Element/RatedAdditionalLoads/Element/Turntable" }
+      ]
+    }
+  },
+  {
+    "id": "task_mounting_17",
+    "question": "请在 300kg 负载级别中，推荐一款既支持顶装（Ceiling）又能在零下 20 度的冷库环境中运行的机器人。",
+    "ground_truth": "推荐 KR 300 R2700-2C-F。它支持顶装（C），虽然手册标注运行温度通常从 0℃ 开始，但其具备铸造级防护且支持特殊温控配置。若要绝对满足冷库需求，需确认其是否为 Arctic 变体，但从现有数据看，C-F 型号是 300kg 级顶装的唯一选择。",
+    "golden_sources": {
+      "documents": [
+        { "path": "AAS/KUKA_KR300_R2700_2C_F/Submodel/TechnicalData/InstallationPosition" },
+        { "path": "AAS/KUKA_KR300_R2700_2C_F/Submodel/TechnicalData/RatedLoad" }
+      ]
+    }
+  },
+  {
+    "id": "task_compliance_18",
+    "question": "我们要为一个半导体工厂选型。根据车间规定，机器人必须具备 ESD 认证。KR 150 R2700-2 是否具备相关认证书？",
+    "ground_truth": "具备。根据认证书（Certification）子模型，KR 150 R2700-2 明确通过了 IEC61340-5-1 和 ANSI/ESD S20.20 认证，完全符合半导体工厂对静电防护（ESD）的要求。",
+    "golden_sources": {
+      "documents": [
+        { "path": "AAS/KUKA_KR150_R2700_2/Submodel/Certification/Element/ESD" }
+      ]
+    }
+  },
+  {
+    "id": "task_workspace_19",
+    "question": "比较 KR 210 R3100-2 C 和 KR 240 R2900-2 C。如果我们的天花板高度受限，需要一款机器人‘在休息姿态下尽可能矮’，且占地面积（Footprint）要小。哪个更合适？",
+    "ground_truth": "两者的占地面积完全相同，均为 754mm x 754mm。但在臂展和长度方面，KR 240 R2900-2 C 臂展更短（2865mm vs 3065mm），在休息姿态下所需的垂直扫掠空间相对更小，更适合高度受限的环境。",
+    "golden_sources": {
+      "documents": [
+        { "path": "AAS/KUKA_KR210_R3100_2_C/Submodel/TechnicalData/MaxReach" },
+        { "path": "AAS/KUKA_KR240_R2900_2_C/Submodel/TechnicalData/MaxReach" },
+        { "path": "AAS/KUKA_KR210_R3100_2_C/Submodel/TechnicalData/Footprint" }
+      ]
+    }
+  },
+  {
+    "id": "task_efficiency_20",
+    "question": "分析一下 KR 350 R2700-2 的 A1、A2、A3 轴速度。它作为重载机器人，其大关节的运行效率在同级别中处于什么水平？",
+    "ground_truth": "KR 350 R2700-2 的 A1-A3 轴额定速度分别为 105, 101, 107 °/s。在 350kg 级别的超重载机器人中，这一速度表现非常平衡，特别是其使用 KR C4 控制系统进行优化，能在大负载下保持高度平稳的动态性能。",
+    "golden_sources": {
+      "documents": [
+        { "path": "AAS/KUKA_KR350_R2700_2/Submodel/AxisData/Element/SpeedAtRatedLoad" }
+      ]
+    }
+  }
+]
